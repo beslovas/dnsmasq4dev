@@ -88,7 +88,7 @@ fi
 
 [[ ! `brew list dnsmasq` ]] \
     && echo "✗ Installation of dnsmasq is corrupt. Quitting." \
-    && exit 0
+    && exit 1
 
 
 [[ -f $DNSMASQ_CONF ]] \
