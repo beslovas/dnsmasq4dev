@@ -71,6 +71,8 @@ if [[ ! `which brew` ]]; then
     [[ -n $PROCEED ]] \
         && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
         && PROCEED=""
+        || echo "Quitting."
+        || exit 0
 fi
 
 DNSMASQ_CONF="$(brew --prefix)$DNSMASQ_CONF"
