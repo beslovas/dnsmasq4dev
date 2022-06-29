@@ -9,7 +9,7 @@
     echo "Not supported OS: $OSTYPE" && \
     exit 1
 
-DNSMASQ_CONF=/usr/local/etc/dnsmasq.conf
+DNSMASQ_CONF=/etc/dnsmasq.conf
 PROCEED=
 
 usage()
@@ -73,6 +73,7 @@ if [[ ! `which brew` ]]; then
         && PROCEED=""
 fi
 
+DNSMASQ_CONF="$(brew --prefix)$DNSMASQ_CONF"
 
 if [[ ! `brew list | grep dnsmasq` ]]; then
     HOMEBREW_NO_ENV_HINTS=1 brew install dnsmasq
