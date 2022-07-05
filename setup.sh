@@ -70,8 +70,8 @@ if [[ ! `which brew` ]]; then
 
     [[ -n $PROCEED ]] \
         && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
-        && PROCEED=""
-        || echo "Quitting."
+        && PROCEED="" \
+        || echo "Quitting." \
         || exit 0
 fi
 
