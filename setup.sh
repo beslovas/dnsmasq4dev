@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Covenience script for setting up wildcard DNS resolver on OSX
 # https://github.com/beslovas/dnsmasq4dev
@@ -81,10 +81,7 @@ if [[ ! `brew list | grep dnsmasq` ]]; then
     HOMEBREW_NO_ENV_HINTS=1 brew install dnsmasq
     [[ -f $DNSMASQ_CONF ]] && mv $DNSMASQ_CONF $DNSMASQ_CONF.example
 
-    [[ ! -f `brew list dnsmasq | grep /homebrew.mxcl.dnsmasq.plist` ]]
-
-    sudo cp $(brew list dnsmasq | grep /homebrew.mxcl.dnsmasq.plist$) /Library/LaunchDaemons/ && \
-    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+    sudo brew services start dnsmasq
 else
     echo "✓ dnsmasq is already installed with brew."
 fi
@@ -95,7 +92,7 @@ fi
 
 
 [[ -f $DNSMASQ_CONF ]] \
-    && echo "✓ File /usr/local/etc/dnsmasq.conf already exist." \
+    && echo "✓ File $DNSMASQ_CONF already exists." \
     || touch $DNSMASQ_CONF
 
 if [[ -z $(cat $DNSMASQ_CONF) ]]; then
@@ -125,8 +122,7 @@ search_order 1
 EOF
 
 
-sudo killall -HUP mDNSResponder
-sudo killall mDNSResponderHelper
+sudo killall -HUP mDNSResponder 2>/dev/null
 sudo dscacheutil -flushcache
 
 
